@@ -33,14 +33,36 @@ def make_text(chains):
     string_list = list(first_key)  
     key = first_key
 
+    counter = 0
+
     while key in chains:
-        value = chains[key]  #gives value
-        key_to_list = list(key) #turns tuple into list
+
+        #gives value. Value is a list
+        value = chains[key]  
+
+        #turns tuple into list
+        key_to_list = list(key) 
+
+        #picks random integer (for index) from 0 to length -1 uses it to
+        #select an item from the list "value"
         value_from_list = value[random.randint(0, len(value)-1)]
-       
-        #picks random integer (for index) from 0 to length -1 and assigns to variable
-        string_list = string_list + [value_from_list]
+
+        #takes list of keys and  merges with the randomly chosen value in a list.
+        if counter == 0:
+            string_list = [''] + string_list + [value_from_list]
+        elif counter%11 == 0:
+            string_list = string_list + ['\n']
+        else:
+            string_list = string_list + [value_from_list]
+
+        #rebinds key to a tuple of the second item in list "key_to_list" and
+        #item "value_from_list"
         key = (key_to_list[1], value_from_list)
+
+        #limit output
+        counter = counter + 1
+        if counter > 300:
+            break
 
     return string_list
 
